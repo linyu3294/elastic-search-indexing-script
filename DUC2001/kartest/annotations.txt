@@ -1,0 +1,5 @@
+doc1.txt@clust1;xxxx
+doc2.txt@clust1;xxxx
+doc3.txt@clust2;xxxx
+doc4.txt@clust2;xxxx
+doc5.txt@clust2;xxxx
