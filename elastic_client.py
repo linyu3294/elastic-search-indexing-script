@@ -4,7 +4,6 @@ from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 
 from news_reader import NewsgroupParser
-
 from duc_reader import DocumentParser
 
 
