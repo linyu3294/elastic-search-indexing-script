@@ -8,13 +8,13 @@ from elasticsearch import Elasticsearch
 from nltk.corpus import stopwords
 
 
-class LDAClient:
+class CorpusTopicsClient:
 
     def __init__(self):
         return None
 
     @staticmethod
-    def create_model(k_topics=10, max_iter=5):
+    def create_model(k_topics=200, max_iter=5):
         l = LatentDirichletAllocation(n_components=k_topics,
                                       max_iter=max_iter,
                                       learning_method='online',
@@ -22,7 +22,8 @@ class LDAClient:
                                       random_state=0)
         return l
 
-    def get_top_words_per_topic(self, index_name, model, vocabulary, n_top_words):
+    @staticmethod
+    def get_top_words_per_topic(index_name, model, vocabulary, n_top_words):
         topic_items = []
         for topic_id, topic_words_prob in enumerate(model.components_):
             print("Topic #%d: " % topic_id)
@@ -54,35 +55,29 @@ class LDAClient:
 
 if __name__ == '__main__':
 
-    model = LDAClient()
+    model = CorpusTopicsClient()
     lda = model.create_model(k_topics=20, max_iter=5)
     VECTORIZER = CountVectorizer()
-    #
-    # news = NewsgroupParser()
-    # ng_data, _ = news.fetch_data_20ng()
-    #
-    # for i in range(len(ng_data)):
-    #     temp = ng_data[i]
-    #     words_list = temp.split(' ')
-    #     remove_list = stopwords.words('english')
-    #     remove_list.extend([''])
-    #     words_list = [i for i in words_list if i not in remove_list]
-    #     doc = ' '.join(words_list)
-    #     ng_data[i] = doc
-    #
-    # _, ng_raw = news.fetch_data_20ng()
-    # ng_data_vect = VECTORIZER.fit_transform(ng_data)
-    # doc_topic_distr = lda.fit_transform(ng_data_vect)
-    # for doc_id, doc_topic_distribution in zip(ng_raw.filenames, doc_topic_distr):
-    #     top_topics = doc_topic_distr.argsort()[::1][:20]
-    # feature_names = VECTORIZER.get_feature_names()
-    # topic_items = model.get_top_words_per_topic("20ng-topics", lda, feature_names, 20)
 
+    news = NewsgroupParser()
+    ng_data, _ = news.fetch_data_20ng()
 
+    for i in range(len(ng_data)):
+        temp = ng_data[i]
+        words_list = temp.split(' ')
+        remove_list = stopwords.words('english')
+        remove_list.extend([''])
+        words_list = [i for i in words_list if i not in remove_list]
+        doc = ' '.join(words_list)
+        ng_data[i] = doc
 
-
-
-
+    _, ng_raw = news.fetch_data_20ng()
+    ng_data_vect = VECTORIZER.fit_transform(ng_data)
+    doc_topic_distr = lda.fit_transform(ng_data_vect)
+    for doc_id, doc_topic_distribution in zip(ng_raw.filenames, doc_topic_distr):
+        top_topics = doc_topic_distr.argsort()[::1][:20]
+    feature_names = VECTORIZER.get_feature_names()
+    topic_items = model.get_top_words_per_topic("20ng-topics", lda, feature_names, 20)
 
     duc = DocumentParser()
     duc_dict, _ = duc.map()
