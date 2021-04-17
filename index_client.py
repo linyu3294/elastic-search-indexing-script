@@ -253,45 +253,45 @@ if __name__ == '__main__':
                            duc_kl_sum_rouge_score_dict,
                            index_name='duc')
 
-    #
-    # esclient.create_index('20ng')
-    # news_group_parser = NewsgroupParser()
-    # ng_document_dict = news_group_parser.map()
-    #
-    # lda_kl_sum = LdaKlSummary()
-    # # sentences per summary
-    # ng_summary_size = 5
-    # # pick top n probalistic words per topic
-    # ng_num_words_in_topic = 20
-    # ng_kl_alpha = 10
-    # ng_kl_lambda = 0.00001
-    # ng_model = lda_kl_sum.make_lda_model(topics=1, max_iter=10)
-    # ng_data_raw = list(ng_document_dict.values())
-    # ng_data_clean = lda_kl_sum.clean_data(ng_data_raw)
-    #
-    # ng_lda_topics_distribution = lda_kl_sum.get_doc_topic_and_distribution(ng_num_words_in_topic,
-    #                                                                        ng_data_clean,
-    #                                                                        ng_model)
-    #
-    # ng_lda_topics_distr_dict = dict(zip(list(ng_document_dict.keys()), ng_lda_topics_distribution))
-    #
-    # ng_lda_kl_summaries = lda_kl_sum.get_summaries(ng_summary_size,
-    #                                                ng_num_words_in_topic,
-    #                                                ng_data_raw,
-    #                                                ng_data_clean,
-    #                                                ng_model,
-    #                                                ng_kl_alpha,
-    #                                                ng_kl_lambda
-    #                                                )
-    #
-    # ng_lda_kl_summary_dict = dict(zip(list(ng_document_dict.keys()), ng_lda_kl_summaries))
-    #
-    # ng_kl_sum = KLSum()
-    # ng_kl_summaries = ng_kl_sum.kl_summarize(zip(ng_data_raw, ng_data_raw), 5)
-    # ng_kl_summary_dict = dict(zip(list(ng_document_dict.keys()), ng_kl_summaries))
-    #
-    # esclient.load_ng_docs(ng_document_dict,
-    #                       ng_lda_topics_distr_dict,
-    #                       ng_lda_kl_summary_dict,
-    #                       ng_kl_summary_dict,
-    #                       index_name='20ng')
+
+    esclient.create_index('20ng')
+    news_group_parser = NewsgroupParser()
+    ng_document_dict = news_group_parser.map()
+
+    lda_kl_sum = LdaKlSummary()
+    # sentences per summary
+    ng_summary_size = 5
+    # pick top n probalistic words per topic
+    ng_num_words_in_topic = 20
+    ng_kl_alpha = 10
+    ng_kl_lambda = 0.00001
+    ng_model = lda_kl_sum.make_lda_model(topics=1, max_iter=10)
+    ng_data_raw = list(ng_document_dict.values())
+    ng_data_clean = lda_kl_sum.clean_data(ng_data_raw)
+
+    ng_lda_topics_distribution = lda_kl_sum.get_doc_topic_and_distribution(ng_num_words_in_topic,
+                                                                           ng_data_clean,
+                                                                           ng_model)
+
+    ng_lda_topics_distr_dict = dict(zip(list(ng_document_dict.keys()), ng_lda_topics_distribution))
+
+    ng_lda_kl_summaries = lda_kl_sum.get_summaries(ng_summary_size,
+                                                   ng_num_words_in_topic,
+                                                   ng_data_raw,
+                                                   ng_data_clean,
+                                                   ng_model,
+                                                   ng_kl_alpha,
+                                                   ng_kl_lambda
+                                                   )
+
+    ng_lda_kl_summary_dict = dict(zip(list(ng_document_dict.keys()), ng_lda_kl_summaries))
+
+    ng_kl_sum = KLSum()
+    ng_kl_summaries = ng_kl_sum.kl_summarize(zip(ng_data_raw, ng_data_raw), 5)
+    ng_kl_summary_dict = dict(zip(list(ng_document_dict.keys()), ng_kl_summaries))
+
+    esclient.load_ng_docs(ng_document_dict,
+                          ng_lda_topics_distr_dict,
+                          ng_lda_kl_summary_dict,
+                          ng_kl_summary_dict,
+                          index_name='20ng')
