@@ -39,9 +39,9 @@ class DocumentParser:
                     with open(doc_summary_path) as sp:
                         summary = sp.read()
                 except FileNotFoundError:
-                    summary = -1
+                    summary = 'Empty Introduction'
                 document_dict[doc_id] = doc_text
-                summary_dict[doc_id] = summary
+                summary_dict[doc_id] = summary.split('Introduction')[0]
         return [document_dict, summary_dict]
 
 

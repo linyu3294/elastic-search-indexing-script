@@ -31,9 +31,6 @@ class LdaKlSummary:
         ng_data = ng_train + ng_test
         return ng_data
 
-    from nltk.corpus import stopwords
-    import nltk
-
     def clean_data(self, raw_corpus):
         nltk.download('stopwords')
         clean_corpus = []
@@ -70,10 +67,10 @@ class LdaKlSummary:
 
             for i in range(len(top_words_indices)):
                 doc_topic_distribution = doc_topic_distribution + '   ( ' + \
-                                          feature_names[top_words_indices[i]] + \
-                                          ' : ' + \
-                                          str(top_words_distribution[i]) + \
-                                          ' )   '
+                                         feature_names[top_words_indices[i]] + \
+                                         ' : ' + \
+                                         str(top_words_distribution[i]) + \
+                                         ' )   '
             lda_topics_distribution.append(doc_topic_distribution)
         return lda_topics_distribution
 
