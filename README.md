@@ -24,6 +24,8 @@ Once Kibana and Elastic Search are running on their respective ports, the next s
 
 To produce entries summaries for each document in elastic search, run the following python script.
 
+
+
 ```
 cd elastic-search-indexing-script/
 
@@ -31,7 +33,7 @@ python index_client.py
 ```
 Once the document summaries are uploaded to kibana, the next step is to produce index patterns.
 This is a fairly straightforward task. Please refer to instructions provided by the [Kibana Guide](https://www.elastic.co/guide/en/kibana/current/index-patterns.html).
-
+![](z_search.png)
 ## Usage and Results
 
 **Search Document By Keyword**
